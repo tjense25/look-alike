@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+  <script src="javascripts/main.js?v=2.3"></script>
+  <title>SongSim</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/main.css?v=2.0">
+  <meta charset="utf-8">
+</head>
+
+<body>
+<div ng-app="look-alike" ng-controller="Ctrl" id="container">
+   <div id="header">
+	<h1> Look-Alike Photo Finder: </h1>
+	<h2> What do you look like? </h2>
+   </div>
+   <div id="searchPhoto">
+	<div id="userPhoto" ng-if='umage-url'><img ng-src="{{image-url}}"></div>
+   	<form ng-submit='searchPhoto()'>
+	  <input type = "text" placeholder="Insert the URL of a photo of yourself" id="search" ng-model='image-url'/>
+	  <input type="submit" class="button" value="Find Look-Alike!"/>
+	</form>
+</div>
+</body>
+</html>
