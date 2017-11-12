@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 router.get('/search', function(req,res,next) {
   console.log("in Search!");
-};
+});
 
 module.exports = router;

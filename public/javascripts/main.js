@@ -1,13 +1,13 @@
 angular.module('look-alike', [])
-	.controller('Ctrl', ['$scope', '$http', Ctrl]);
+	.controller('myCtrl', ['$scope', '$http', myCtrl]);
 
-function Ctrl($scope, $http) {
-	$scope.image-url = null;
-	$scope.similar-image;
+function myCtrl($scope, $http) {
+	$scope.image_url;
+	$scope.similar_image;
 	$scope.search = function() {
 		var hash = 234127348172834791873498;
 		var url = '/search?q=' + hash;
-		cosole.log(url);
+		console.log(url);
 		$http.get(url)
 			.then(function onSuccess(response) {
 				console.log(response);
