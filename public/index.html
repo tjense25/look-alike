@@ -15,9 +15,9 @@
 	<h2> What do you look like? </h2>
    </div>
    <div id="searchPhoto">
-	<div id="userPhoto" ng-if='umage-url'><img ng-src="{{image-url}}"></div>
+	<div id="userPhoto" ng-if='image-url'><img ng-src="{{image-url}}"></div>
    	<form ng-submit='searchPhoto()'>
-	  <input type = "text" placeholder="Insert the URL of a photo of yourself" id="search" ng-model='image-url'/>
+	  <input type = "text" placeholder="Insert a URL of a photo of yourself" id="search" ng-model='image-url'/>
 	  <input type="submit" class="button" value="Find Look-Alike!"/>
 	</form>
 </div>
