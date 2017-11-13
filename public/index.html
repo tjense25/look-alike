@@ -22,6 +22,20 @@
 	  url: <input type = "text" placeholder="Insert a URL of a photo of yourself" id="search" ng-model='image_url' ng-change="preview()"/>
 	  <input type="submit" class="button" value="Find Look-Alike!"/>
 	</form>
+	<div id="celebrityPhoto" ng-if='lookalike_image'>
+		<h2>Your Celebrity Doppleganger is {{lookalike_image.name}}</h2>
+        	<img ng-src="{{lookalike_image.imgsrc}}">
+	</div>
+   </div>
+   <div id="addCelebrity">
+	<div id="preview" ng-if='celebrity_url'><img ng-src="{{celebrity_url}}"></div>
+	<h2> Add a celebrity to the database! </h2>
+	<form ng-submit='addCelebrity()'>
+	  <input type='text' placeholder='Celebrity Name' class="textsearch" ng-model='celebrityname'/>
+	  <input type='text' placeholder='image URL' class="textsearch" ng-model='celebrity_url'/>
+	  <input type="submit" class="button" value = "Add"/>
+        </form>
+   </div>
 </div>
 </body>
 </html>

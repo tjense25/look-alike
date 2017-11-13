@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 mongoose.connect('mongodb://localhost/celebrityDB', {useMongoClient: true});
 var celebritySchema = mongoose.Schema({
-	Name:String,
+	name:String,
 	imgsrc: String,
 	hash: String
 });
@@ -21,34 +21,48 @@ router.get('/', function(req, res, next) {
 });
 router.get('/search', function(req,res,next) {
   console.log("in Search!");
-  image_url = req.query.q
-  var hash = "";
+  image_url = req.query.q;
   imageHash(image_url, 16, true, (error, data) => { 
 	if(error) console.log("error!")
 	else { 
-		console.log(data);
-		hash = data;
+		findClosest(data);	
 	}
    });
+   var findClosest = function(data) {
+	Celebrity.find(function(err, celebrityList) {
+		if(err) return console.error(err);
+		var hash = parseInt("0x" + data)
+		var min = Math.abs(parseInt("0x" + celebrityList[0].hash) - hash)
+		var min_pos = 0;
+		for(i = 0; i < celebrityList.length; i++) {
+			var value = Math.abs(parseInt("0x" + celebrityList[i].hash) - hash)
+			if(value < min) {
+				min = value;
+				min_pos = i;
+			}
+		}
+		console.log(celebrityList[min_pos]);
+		res.json(celebrityList[min_pos]);
+	});
+    };
 });
 router.post('/celebrity', function(req,res,next) {
-	console.log("celebrity post");
-	var celebrityObj = req.body;
-	var hash = "";
-	imageHash(celebrityObj.image_url, 16, true, (error, data) => {
-		if(error) console.log("error!")
+	console.log("in celebrity post");
+	var hash;
+	imageHash(req.body.imgsrc, 16, true, (error, data) => {
+		if(error) console.log("image could not be hashed")
 		else {
-			console.log(data);
-			hash = data;
+			var celebrityObj = {name:req.body.name, imgsrc:req.body.imgsrc, hash:data};
+			console.log(celebrityObj);
+			var newcelebrity = new Celebrity(celebrityObj);
+			newcelebrity.save(function(err,post) {
+				if(err) return console.error(err);
+				console.log(post);
+				res.sendStatus(200);
+			});
 		}
 	});
-	celebrityObj.hash = hash;
-	var newcelebrity = new Celebrity(celebrityObj);
-	newcelebrity.save(function(err,post) {
-		if(err) return console.error(err);
-		console.log(post);
-		res.sendStatus(200);
-	});
+
 });
 
 module.exports = router;

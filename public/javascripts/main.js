@@ -4,7 +4,9 @@ angular.module('look-alike', [])
 function myCtrl($scope, $http) {
 	$scope.image_url;
 	$scope.input_url;
-	$scope.similar_image;
+	$scope.lookalike_image;
+	$scope.celebrity_url
+	$scope.celebrityname
 	$scope.readURL = function(input) {
 		console.log('in readURL');
 		if(input.files && input.files[0]) {
@@ -25,9 +27,23 @@ function myCtrl($scope, $http) {
 		$http.get(url)
 			.then(function onSuccess(response) {
 				console.log(response);
-				var data = response.data;
+				$scope.lookalike_image  = response.data;
 			}, function onError(response) {
-				console.log("error!");
+				console.log("Could not hash photo!");
+				$lookalike_image = null;
 			});	
 	}	
+	$scope.addCelebrity = function() {
+		console.log("in addCelebrity");
+		var myObj = {name: $scope.celebrityname, imgsrc: $scope.celebrity_url, hash: ""};
+		jobj = JSON.stringify(myObj);
+		var url = "/celebrity";
+		$http.post(url, jobj)
+		     .then(function onSuccess(response) {
+			console.log(response);
+			$scope.result = $scope.celebrityname + " successfully added to the database!";
+		});
+		$scope.celebrity_url = "";
+		$scope.celebrityname = "";
+	}
 }
