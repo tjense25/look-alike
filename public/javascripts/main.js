@@ -3,11 +3,25 @@ angular.module('look-alike', [])
 
 function myCtrl($scope, $http) {
 	$scope.image_url;
+	$scope.input_url;
 	$scope.similar_image;
+	$scope.readURL = function(input) {
+		console.log('in readURL');
+		if(input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				console.log(e);
+				$scope.input_url = e.target.result
+				$scope.$apply()
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	$scope.preview = function() {
+		$scope.input_url = $scope.image_url;
+	}
 	$scope.search = function() {
-		var hash = 234127348172834791873498;
-		var url = '/search?q=' + hash;
-		console.log(url);
+		var url = '/search?q=' + $scope.input_url;
 		$http.get(url)
 			.then(function onSuccess(response) {
 				console.log(response);

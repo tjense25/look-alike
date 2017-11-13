@@ -15,9 +15,11 @@
 	<h2> What do you look like? </h2>
    </div>
    <div id="searchPhoto">
-	<div id="userPhoto" ng-if='image_url'><img ng-src="{{image_url}}"></div>
+	<div id="userPhoto" ng-if='input_url'><img ng-src="{{input_url}}"></div>
+	<h2> Upload your own image or insert image url: </h2>
    	<form ng-submit='search()'>
-	  <input type = "text" placeholder="Insert a URL of a photo of yourself" id="search" ng-model='image_url'/>
+	   upload image: <input type ='file' onchange="angular.element(this).scope().readURL(this)"  accept="image/*">
+	  url: <input type = "text" placeholder="Insert a URL of a photo of yourself" id="search" ng-model='image_url' ng-change="preview()"/>
 	  <input type="submit" class="button" value="Find Look-Alike!"/>
 	</form>
 </div>
