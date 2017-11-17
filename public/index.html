@@ -11,11 +11,11 @@
 <body>
 <div ng-app="look-alike" ng-controller="myCtrl" id="container">
    <div id="header">
-	<h1> Look-Alike Photo Finder: </h1>
-	<h2> What do you look like? </h2>
+	<h1> Find your celebrity Look-Alike!</h1>
+	<h2> Who do you look like the most? </h2>
    </div>
    <div id="searchPhoto">
-	<div id="userPhoto" ng-if='input_url'><img ng-src="{{input_url}}"></div>
+	<div id="userPhoto" ng-if='input_url'><img id="preview" ng-src="{{input_url}}"></div>
 	<h2> Upload your own image or insert image url: </h2>
    	<form ng-submit='search()'>
 	   upload image: <input type ='file' onchange="angular.element(this).scope().readURL(this)"  accept="image/*">
@@ -28,7 +28,7 @@
 	</div>
    </div>
    <div id="addCelebrity">
-	<div id="preview" ng-if='celebrity_url'><img ng-src="{{celebrity_url}}"></div>
+	<div id="celebrityPreview" ng-if='celebrity_url'><img id="databaseImage" ng-src="{{celebrity_url}}"></div>
 	<h2> Add a celebrity to the database! </h2>
 	<form ng-submit='addCelebrity()'>
 	  <input type='text' placeholder='Celebrity Name' class="textsearch" ng-model='celebrityname'/>
@@ -36,6 +36,7 @@
 	  <input type="submit" class="button" value = "Add"/>
         </form>
    </div>
+   <canvas id="myCanvas" ng-if='never'/>
 </div>
 </body>
 </html>
