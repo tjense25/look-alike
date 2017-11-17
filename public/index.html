@@ -11,32 +11,38 @@
 <body>
 <div ng-app="look-alike" ng-controller="myCtrl" id="container">
    <div id="header">
-	<h1> Find your celebrity Look-Alike!</h1>
-	<h2> Who do you look like the most? </h2>
+	<h1> Find Your Celebrity Look-Alike!</h1>
+	<h3> Who in Hollywood do you most resemble?</h3>
    </div>
    <div id="searchPhoto">
+	<h2> Upload a  Photo of Yourself: </h2>
 	<div id="userPhoto" ng-if='input_url'><img id="preview" ng-src="{{input_url}}"></div>
-	<h2> Upload your own image or insert image url: </h2>
    	<form ng-submit='search()'>
-	   upload image: <input type ='file' onchange="angular.element(this).scope().readURL(this)"  accept="image/*">
-	  url: <input type = "text" placeholder="Insert a URL of a photo of yourself" id="search" ng-model='image_url' ng-change="preview()"/>
+	  upload image: <br><input id="button" type ='file' onchange="angular.element(this).scope().readURL(this)"  accept="image/*"> <br>
+	  or insert image url: <br><input class="formText" type = "text" placeholder="Insert a URL of a photo of yourself" id="search" ng-model='image_url' ng-change="preview()"/><br>
 	  <input type="submit" class="button" value="Find Look-Alike!"/>
 	</form>
 	<div id="celebrityPhoto" ng-if='lookalike_image'>
-		<h2>Your Celebrity Doppleganger is {{lookalike_image.name}}</h2>
+		<h2>Your Celebrity Doppleganger is {{lookalike_image.name}}:</h2>
         	<img ng-src="{{lookalike_image.imgsrc}}">
 	</div>
    </div>
    <div id="addCelebrity">
-	<div id="celebrityPreview" ng-if='celebrity_url'><img id="databaseImage" ng-src="{{celebrity_url}}"></div>
 	<h2> Add a celebrity to the database! </h2>
+	<div id="celebrityPreview" ng-if='celebrity_url'><img id="databaseImage" ng-src="{{celebrity_url}}"></div>
 	<form ng-submit='addCelebrity()'>
-	  <input type='text' placeholder='Celebrity Name' class="textsearch" ng-model='celebrityname'/>
-	  <input type='text' placeholder='image URL' class="textsearch" ng-model='celebrity_url'/>
-	  <input type="submit" class="button" value = "Add"/>
+	  <input type='text' placeholder='Celebrity Name' class="formText" ng-model='celebrityname'/>
+	  <input type='text' placeholder='image URL' class="formText" ng-model='celebrity_url'/>
+	  <input type="submit" class="button" value = "Add Celebrity!"/>
         </form>
    </div>
-   <canvas id="myCanvas" ng-if='never'/>
+   <button class="button" id="explanation" ng-if="show_button" ng-click="showExplanation()"> How Does Celebrity Look-Alike Work?</button>
+   <div id="explanation_div" ng-if="show_button==false">
+	<h3> Using Hash Functions for Image Recognition: </h3>
+	<p> The Celebrity Look-Alike Photo Finder is a unique image recognition software that implmenents hash functions to try to find similarities between images. Most image recognition is done through the use of Artificial Intelligence, however with a proper hash function it may be possible to group images in a much simpler way. <br>
+	In Mathematics, A Hash function h(n) is a one-way function that maps data of arbitrary size to data of a fixed size. Knowing just the hash of a function, it should be hard to find an input that produces  that hash, and it should be just as hard to find a collision, two values n and m such that h(n) = h(m). The idea behind Celebrity Look-Alike is that for a given hash function, it may be true that inputs which are very similar might result in hashes that are very close together. So two images of the same person are  more likely to have a similar hashes than two images of different people. <br>
+	Celebrity Look-Alike implements a hash function that encodes the uploaded image into base64 then finds the hash of the encoded String. The result of a hash is a 32-bit integer. When a user uploads a photo, Look-Alike finds the hash of this photo and searches its database of celebrities to find the celebrity photo whose hash is closest to the user's hash. This celebrities photo is then displayed on the screen. Improvements in the hash function which will ignore background pixels and scale images to size will lead to even more promising image recognition results. </p>
+</div>
 </div>
 </body>
 </html>

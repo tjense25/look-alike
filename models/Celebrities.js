@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var CelebritySchema = new mongoose.Schema({
-	title:String,
+	name:String,
 	imgsrc: String,
 	hash: Number
 });
