@@ -54,7 +54,7 @@ function myCtrl($scope, $http) {
 				console.log(response);
 				$scope.lookalike_image  = response.data;
 			}, function onError(response) {
-				console.log("Could not hash photo!");
+				console.log("Could not hash photo!!!");
 				$lookalike_image = null;
 			});	
 		}
@@ -72,7 +72,7 @@ function myCtrl($scope, $http) {
 						console.log(response);
 						$scope.lookalike_image = response.data;
 				}, function onError(response) {
-					console.log("Could not hash photo!");
+					console.log("Could not hash photo!!!");
 					$lookalike_image = null;
 				});
 			});
